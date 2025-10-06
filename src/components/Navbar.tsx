@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,21 +17,15 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Education", href: "#education" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Education", href: "/education" },
+    { name: "Skills", href: "/skills" },
+    { name: "Projects", href: "/projects" },
+    { name: "Contact", href: "/contact" },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <motion.nav
@@ -45,36 +41,37 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <motion.a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#home");
-            }}
-            className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            BS
-          </motion.a>
+          <Link to="/">
+            <motion.div
+              className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              BS
+            </motion.div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                className="px-4 py-2 text-foreground/80 hover:text-primary transition-colors duration-200 relative group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
-              </motion.a>
+              <Link key={item.name} to={item.href}>
+                <motion.div
+                  className={`px-4 py-2 transition-colors duration-200 relative group ${
+                    isActive(item.href)
+                      ? "text-primary"
+                      : "text-foreground/80 hover:text-primary"
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item.name}
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-primary transition-all duration-300 ${
+                      isActive(item.href) ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </motion.div>
+              </Link>
             ))}
           </div>
 
@@ -100,18 +97,22 @@ const Navbar = () => {
       >
         <div className="px-4 py-4 space-y-2">
           {navItems.map((item) => (
-            <motion.a
+            <Link
               key={item.name}
-              href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(item.href);
-              }}
-              className="block px-4 py-3 text-foreground/80 hover:text-primary hover:bg-primary/10 rounded-lg transition-all duration-200"
-              whileTap={{ scale: 0.95 }}
+              to={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
             >
-              {item.name}
-            </motion.a>
+              <motion.div
+                className={`block px-4 py-3 rounded-lg transition-all duration-200 ${
+                  isActive(item.href)
+                    ? "text-primary bg-primary/10"
+                    : "text-foreground/80 hover:text-primary hover:bg-primary/10"
+                }`}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item.name}
+              </motion.div>
+            </Link>
           ))}
         </div>
       </motion.div>
