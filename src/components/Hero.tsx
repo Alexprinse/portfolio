@@ -5,7 +5,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 pt-16">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
       
