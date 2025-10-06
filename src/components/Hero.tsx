@@ -48,10 +48,10 @@ const Hero = () => {
         >
           {/* Profile photo placeholder */}
           <motion.div
-            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-primary p-1 animate-glow"
+            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 p-1 animate-glow"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="w-full h-full rounded-full bg-background flex items-center justify-center text-4xl sm:text-5xl md:text-6xl font-bold text-primary">
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-4xl sm:text-5xl md:text-6xl font-bold text-black">
               S
             </div>
           </motion.div>
@@ -129,17 +129,6 @@ const Hero = () => {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <div className="w-6 h-10 border-2 border-primary/50 rounded-full flex justify-center pt-2">
-          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-        </div>
-      </motion.div>
     </section>
   );
 };

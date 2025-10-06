@@ -14,11 +14,12 @@ export interface EmailResponse {
 // EmailJS integration (client-side email sending)
 export const sendEmailWithEmailJS = async (formData: ContactFormData): Promise<EmailResponse> => {
   try {
-    // Note: You'll need to install emailjs-com package
-    // npm install @emailjs/browser
-    
-    // Uncomment and configure when you're ready to use EmailJS:
-    /*
+    console.log('EmailJS attempting to send with config:', {
+      serviceId: config.contact.emailjs.serviceId,
+      templateId: config.contact.emailjs.templateId,
+      publicKey: config.contact.emailjs.publicKey.substring(0, 5) + '...',
+    });
+
     const emailjs = await import('@emailjs/browser');
     
     const result = await emailjs.send(
@@ -29,27 +30,39 @@ export const sendEmailWithEmailJS = async (formData: ContactFormData): Promise<E
         from_email: formData.email,
         message: formData.message,
         to_name: config.personal.name,
+        to_email: config.personal.email,
       },
       config.contact.emailjs.publicKey
     );
 
+    console.log('EmailJS success:', result);
     return {
       success: true,
-      message: 'Email sent successfully via EmailJS',
-    };
-    */
-    
-    // Placeholder for now
-    console.log('EmailJS would send:', formData);
-    return {
-      success: true,
-      message: 'EmailJS is not configured yet',
+      message: 'Email sent successfully! Thank you for your message.',
     };
   } catch (error) {
-    console.error('EmailJS error:', error);
+    console.error('EmailJS detailed error:', error);
+    
+    // More specific error messages
+    let errorMessage = 'Failed to send email via EmailJS';
+    
+    if (error instanceof Error) {
+      if (error.message.includes('Invalid service ID')) {
+        errorMessage = 'EmailJS service ID is invalid. Please check your configuration.';
+      } else if (error.message.includes('Invalid template ID')) {
+        errorMessage = 'EmailJS template ID is invalid. Please check your configuration.';
+      } else if (error.message.includes('Invalid public key')) {
+        errorMessage = 'EmailJS public key is invalid. Please check your configuration.';
+      } else if (error.message.includes('network')) {
+        errorMessage = 'Network error. Please check your internet connection.';
+      } else {
+        errorMessage = `EmailJS error: ${error.message}`;
+      }
+    }
+    
     return {
       success: false,
-      message: 'Failed to send email via EmailJS',
+      message: errorMessage,
     };
   }
 };

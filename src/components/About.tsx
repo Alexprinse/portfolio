@@ -47,7 +47,7 @@ const About = () => {
           <div className="w-20 h-1 bg-gradient-primary mx-auto" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
           <motion.div variants={itemVariants} className="space-y-6">
             <p className="text-lg text-foreground/80 leading-relaxed">
               I'm a final year BTech student passionate about pushing the boundaries of

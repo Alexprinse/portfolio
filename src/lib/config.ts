@@ -3,11 +3,11 @@ export const config = {
   // Personal Information
   personal: {
     name: "B. Shalem",
-    fullName: "B. Shalem",
+    fullName: "Badampudi Shalem Bakth Singh",
     title: "AI & Robotics Developer",
     email: "princebadampudi@gmail.com",
-    phone: "+1 (555) 123-4567",
-    location: "Your City, Your Country",
+    phone: "6302251158",
+    location: "Andhra Pradesh, India",
     bio: "Final year BTech student exploring the intersection of artificial intelligence, robotics, and cutting-edge technology to build the future.",
   },
 
@@ -21,20 +21,20 @@ export const config = {
   // Contact Form Configuration
   contact: {
     // Set to true if you want to use a real email service
-    enableRealSubmission: false,
+    enableRealSubmission: true,
     
     // EmailJS configuration (if using EmailJS)
     emailjs: {
-      serviceId: "your_service_id",
-      templateId: "your_template_id",
-      publicKey: "your_public_key",
+      serviceId: "service_5ig206i", // Replace with your EmailJS service ID
+      templateId: "template_0y18log", // Replace with your EmailJS template ID
+      publicKey: "Lk9QQgePXyoPQksdI", // Replace with your EmailJS public key
     },
     
     // Alternative: Formspree endpoint
-    formspreeEndpoint: "https://formspree.io/f/your-form-id",
+    formspreeEndpoint: "https://formspree.io/f/your-form-id", // Replace with your Formspree form ID
     
     // Alternative: Netlify Forms (works automatically if hosted on Netlify)
-    useNetlifyForms: false,
+    useNetlifyForms: false, // Set to true only if deploying to Netlify and not using EmailJS
   },
 
   // Project Links

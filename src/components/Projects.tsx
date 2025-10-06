@@ -12,34 +12,42 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "Autonomous Navigation System",
+      title: "LiveInbox AI – Real-Time Email Management with Auto-Replies",
       description:
-        "Developed a real-time obstacle detection and path planning system using ROS and deep learning for autonomous mobile robots.",
-      tags: ["Python", "ROS", "Computer Vision", "PyTorch"],
+        "Built an intelligent email workflow platform integrating Gmail IMAP ingestion, NLP enrichment, and AI-assisted draft generation with real-time updates, Priority Insights and analytics visualization.",
+      tags: ["FastAPI", "React (Vite)", "SQLite", "SQLAlchemy", "TextBlob", "Gemini API", "Openrouter", "React Query", "Chart.js", "ECharts", "SSE", "Spacy"],
       github: config.projects.autonomousNavigation.github,
       demo: config.projects.autonomousNavigation.demo,
     },
     {
-      title: "Natural Language Processing Model",
+      title: "Breast Cancer Detection Using Artificial Intelligence and Machine Learning",
       description:
-        "Built a transformer-based NLP model for sentiment analysis and text classification with 95% accuracy on custom dataset.",
-      tags: ["TensorFlow", "NLP", "BERT", "Python"],
+        "Built and deployed ML and DL models for early breast cancer detection, applying preprocessing, SVM/Decision Tree baselines, and ResNet50. Evaluated performance using precision, recall, F1-score, and ROC curves. Optimized accuracy through hyperparameter tuning.",
+      tags: ["Python", "Scikit-learn", "TensorFlow/Keras", "Pandas", "NumPy", "Matplotlib", "Computer Vision"],
       github: config.projects.nlpModel.github,
       demo: config.projects.nlpModel.demo,
     },
     {
-      title: "Computer Vision Pipeline",
+      title: "REF AI implementation using Deep Learning, XAI, Block chain",
       description:
-        "Implemented object detection and tracking system using YOLO and OpenCV for real-time video analysis applications.",
-      tags: ["OpenCV", "YOLO", "Python", "Docker"],
+        "Developed a deep learning model with blockchain-based logging and XAI methods (Grad-CAM, LIME, LRP, IG) for breast cancer detection, deployed via Streamlit for real-time use.",
+      tags: ["Python", "TensorFlow", "OpenCV", "CNN Architectures", "Transfer Learning", "Streamlit", "LRP", "Grad-CAM", "SmoothGradIG"],
       github: config.projects.computerVision.github,
       demo: config.projects.computerVision.demo,
     },
     {
-      title: "Reinforcement Learning Agent",
+      title: "Campus Events Web Application",
       description:
-        "Created an RL agent using Q-learning and policy gradients to solve complex decision-making tasks in simulated environments.",
-      tags: ["Python", "Gym", "RL", "Neural Networks"],
+        "Created a web app for discovering and managing college events with secure authentication, real-time Firestore updates, event moderation, and responsive design",
+      tags: ["React.js", "Firebase (Firestore, Authentication)", "Vercel", "CSS"],
+      github: config.projects.reinforcementLearning.github,
+      demo: config.projects.reinforcementLearning.demo,
+    },
+    {
+      title: "Medical Chatbot",
+      description:
+        "CA retrieval-augmented generation (RAG) framework was implemented to address biomedical question answering through Document Data Extraction. The system integrates medical document processing with BioMistral-7B to deliver contextually accurate responses.",
+      tags: ["Python", "LangChain", "ChromaDB", "LlamaCpp", "SentenceTransformer", "LLM", "Hugging Face"],
       github: config.projects.reinforcementLearning.github,
       demo: config.projects.reinforcementLearning.demo,
     },

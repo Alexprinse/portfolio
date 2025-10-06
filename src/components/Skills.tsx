@@ -9,39 +9,39 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      category: "AI & Machine Learning",
-      skills: [
-        { name: "TensorFlow", level: 90 },
-        { name: "PyTorch", level: 85 },
-        { name: "Scikit-learn", level: 88 },
-        { name: "OpenCV", level: 80 },
-      ],
-    },
-    {
-      category: "Robotics",
-      skills: [
-        { name: "ROS", level: 85 },
-        { name: "Arduino", level: 75 },
-        { name: "Computer Vision", level: 82 },
-        { name: "Path Planning", level: 78 },
-      ],
-    },
-    {
-      category: "Programming",
+      category: "Programming Languages",
       skills: [
         { name: "Python", level: 95 },
-        { name: "C++", level: 80 },
-        { name: "JavaScript", level: 75 },
-        { name: "SQL", level: 70 },
+        { name: "C++", level: 85 },
+        { name: "C", level: 80 },
+        { name: "JavaScript", level: 82 },
+        { name: "SQL", level: 78 },
       ],
     },
     {
-      category: "Tools & Platforms",
+      category: "AI & Machine Learning",
       skills: [
-        { name: "Git", level: 88 },
-        { name: "Docker", level: 80 },
-        { name: "Linux", level: 85 },
-        { name: "AWS", level: 72 },
+        { name: "Machine Learning", level: 90 },
+        { name: "Artificial Intelligence", level: 88 },
+        { name: "Deep Learning", level: 85 },
+        { name: "NLP", level: 80 },
+      ],
+    },
+    {
+      category: "Frameworks & Tools",
+      skills: [
+        { name: "React", level: 85 },
+        { name: "PySpark", level: 75 },
+        { name: "PowerBI", level: 80 },
+        { name: "ROS", level: 78 },
+        { name: "Gazebo", level: 75 },
+      ],
+    },
+    {
+      category: "Soft Skills",
+      skills: [
+        { name: "Communication Skills", level: 88 },
+        { name: "Time Management", level: 85 },
       ],
     },
   ];

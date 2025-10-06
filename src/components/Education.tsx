@@ -11,27 +11,39 @@ const Education = () => {
   const education = [
     {
       degree: "Bachelor of Technology (B.Tech)",
-      field: "Computer Science & Engineering",
-      institution: "Your University Name",
-      location: "City, State",
-      period: "2021 - 2025",
-      grade: "CGPA: 8.5/10",
+      field: "Electronics and Communication Engineering",
+      institution: "Rajiv Gandhi University of Knowledge Technologies",
+      location: "Andhra Pradesh, India",
+      period: "2022 - 2026",
+      grade: "CGPA: 8.1/10",
       highlights: [
         "Specialized in Artificial Intelligence & Robotics",
         "Machine Learning and Deep Learning coursework",
-        "Published research in Computer Vision",
+        "Research in Explainable AI",
       ],
     },
     {
       degree: "Higher Secondary Education",
-      field: "Science Stream (PCM + Computer Science)",
-      institution: "Your School Name",
-      location: "City, State",
-      period: "2019 - 2021",
-      grade: "Percentage: 92%",
+      field: "Science Stream (PCM)",
+      institution: "Rajiv Gandhi University of Knowledge Technologies",
+      location: "Andhra Pradesh, India",
+      period: "2020 - 2022",
+      grade: "Percentage: 86%",
       highlights: [
-        "Outstanding performance in Mathematics & Computer Science",
-        "School topper in Science subjects",
+        "Outstanding performance in Mathematics",
+        "Good grades in Science subjects",
+      ],
+    },
+    {
+      degree: "Secondary School Education",
+      field: "General",
+      institution: "Narayana E-Techno School",
+      location: "Andhra Pradesh, India",
+      period: "2020 passout",
+      grade: "Percentage: 97%",
+      highlights: [
+        "Good in Academics",
+        "Leadership"
       ],
     },
   ];
