@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { sendContactEmail, type ContactFormData } from "@/lib/emailService";
+import { config } from "@/lib/config";
 
 const Contact = () => {
   const [ref, inView] = useInView({
@@ -25,15 +27,53 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    // Basic form validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+        title: "Validation Error",
+        description: "Please fill in all fields.",
+        variant: "destructive",
       });
-      setFormData({ name: "", email: "", message: "" });
       setIsSubmitting(false);
-    }, 1000);
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const result = await sendContactEmail(formData as ContactFormData);
+      
+      if (result.success) {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        // Reset form
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        throw new Error(result.message);
+      }
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error sending your message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -46,12 +86,12 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-muted/10 to-background" />
 
       {/* Background glow */}
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-primary/10 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -70,19 +110,19 @@ const Contact = () => {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto relative z-10"
       >
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Get In Touch
             </span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-primary mx-auto mb-6" />
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="w-16 sm:w-20 h-1 bg-gradient-primary mx-auto mb-4 sm:mb-6" />
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Have a project in mind or just want to chat about AI and robotics? Feel free to reach out!
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -93,17 +133,17 @@ const Contact = () => {
             <ContactInfo
               icon={<Mail className="w-6 h-6" />}
               title="Email"
-              info="contact@example.com"
+              info={config.personal.email}
             />
             <ContactInfo
               icon={<Phone className="w-6 h-6" />}
               title="Phone"
-              info="+91 XXXXX XXXXX"
+              info={config.personal.phone}
             />
             <ContactInfo
               icon={<MapPin className="w-6 h-6" />}
               title="Location"
-              info="India"
+              info={config.personal.location}
             />
 
             <div className="pt-8">

@@ -1,17 +1,21 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { config } from "@/lib/config";
 import React from "react";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 pt-16">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8 pt-16">
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
       
       {/* Glowing orbs */}
       <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"
+        className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-primary/20 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.5, 0.3],
@@ -23,7 +27,7 @@ const Hero = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"
+        className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-secondary/20 rounded-full blur-3xl"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.3, 0.5, 0.3],
@@ -44,11 +48,11 @@ const Hero = () => {
         >
           {/* Profile photo placeholder */}
           <motion.div
-            className="w-32 h-32 mx-auto mb-8 rounded-full bg-gradient-primary p-1 animate-glow"
+            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-primary p-1 animate-glow"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="w-full h-full rounded-full bg-muted flex items-center justify-center text-6xl font-bold bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">
-              BS
+            <div className="w-full h-full rounded-full bg-background flex items-center justify-center text-4xl sm:text-5xl md:text-6xl font-bold text-primary">
+              S
             </div>
           </motion.div>
 
@@ -57,9 +61,9 @@ const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-7xl font-bold mb-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
               <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-                B. Shalem
+                {config.personal.name}
               </span>
             </h1>
           </motion.div>
@@ -68,7 +72,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-8"
+            className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-6 sm:mb-8"
           >
             <TypewriterText
               texts={[
@@ -83,22 +87,21 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-lg text-foreground/80 mb-12 max-w-2xl mx-auto"
+            className="text-base sm:text-lg text-foreground/80 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
           >
-            Final year BTech student exploring the intersection of artificial intelligence,
-            robotics, and cutting-edge technology to build the future.
+            {config.personal.bio}
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
-            className="flex flex-wrap gap-4 justify-center"
+            className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center px-4"
           >
             <Button
               size="lg"
               className="bg-gradient-primary text-primary-foreground shadow-neon hover:shadow-glow-primary transition-all duration-300 group"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => navigate('/contact')}
             >
               Get In Touch
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
@@ -107,7 +110,7 @@ const Hero = () => {
               size="lg"
               variant="outline"
               className="border-primary/50 hover:bg-primary/10 hover:border-primary transition-all duration-300"
-              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => navigate('/projects')}
             >
               View Projects
             </Button>
@@ -118,11 +121,11 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="flex gap-6 justify-center mt-12"
+            className="flex gap-4 sm:gap-6 justify-center mt-8 sm:mt-12 px-4"
           >
-            <SocialLink icon={<Github />} href="https://github.com" label="GitHub" />
-            <SocialLink icon={<Linkedin />} href="https://linkedin.com" label="LinkedIn" />
-            <SocialLink icon={<Mail />} href="mailto:contact@example.com" label="Email" />
+            <SocialLink icon={<Github />} href={config.social.github} label="GitHub" />
+            <SocialLink icon={<Linkedin />} href={config.social.linkedin} label="LinkedIn" />
+            <SocialLink icon={<Mail />} href={config.social.email} label="Email" />
           </motion.div>
         </motion.div>
       </div>
