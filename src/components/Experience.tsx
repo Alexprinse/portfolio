@@ -145,16 +145,26 @@ const Experience = () => {
             </span>
           </h3>
           <div className="space-y-4">
-            <motion.div 
-              className="p-6 rounded-xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300"
-              whileHover={{ scale: 1.02, boxShadow: "var(--glow-primary)" }}
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <Trophy className="w-5 h-5 text-primary" />
-                <h4 className="text-lg font-semibold text-foreground">Regional Finale Winner - NXP AIM Robotics Competition</h4>
-              </div>
-              <p className="text-muted-foreground">NXP Semiconductors • 2025 (Ongoing)</p>
-            </motion.div>
+          <motion.div 
+            className="p-6 rounded-xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300"
+            whileHover={{ scale: 1.02, boxShadow: "var(--glow-primary)" }}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <Trophy className="w-5 h-5 text-primary" />
+              <h4 className="text-lg font-semibold text-foreground">Third prize in Grand Finale - NXP AIM Robotics Competition</h4>
+            </div>
+            <p className="text-muted-foreground">NXP Semiconductors • 2025</p>
+          </motion.div>
+          <motion.div 
+            className="p-6 rounded-xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300"
+            whileHover={{ scale: 1.02, boxShadow: "var(--glow-primary)" }}
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <Trophy className="w-5 h-5 text-primary" />
+              <h4 className="text-lg font-semibold text-foreground">Regional Finale Winner - NXP AIM Robotics Competition</h4>
+            </div>
+            <p className="text-muted-foreground">NXP Semiconductors • 2025</p>
+          </motion.div>
             <motion.div 
               className="p-6 rounded-xl bg-card border border-primary/20 hover:border-primary/40 transition-all duration-300"
               whileHover={{ scale: 1.02, boxShadow: "var(--glow-primary)" }}

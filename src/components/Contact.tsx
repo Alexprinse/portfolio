@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Send, Mail, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { sendContactEmail, type ContactFormData } from "@/lib/emailService";
 import { config } from "@/lib/config";
 
 const Contact = () => {
@@ -22,6 +21,37 @@ const Contact = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const [nextUrl, setNextUrl] = useState("");
+
+  useEffect(() => {
+    try {
+      // Preserve current path and add query + anchor so user returns to contact section
+      const base = window.location.href.split('#')[0].split('?')[0];
+      setNextUrl(base + "?contact=success#contact");
+    } catch (e) {
+      // ignore during SSR or test env
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("contact") === "success") {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        // remove the param so the toast doesn't show again on refresh
+        params.delete("contact");
+        const newUrl =
+          window.location.pathname + (params.toString() ? "?" + params.toString() : "");
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, [toast]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,19 +81,17 @@ const Contact = () => {
     }
 
     try {
-      const result = await sendContactEmail(formData as ContactFormData);
-      
-      if (result.success) {
-        toast({
-          title: "Message sent successfully!",
-          description: "Thank you for reaching out. I'll get back to you soon.",
-        });
-        // Reset form
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        throw new Error(result.message);
-      }
-      
+      // All validation passed — submit the native form to FormSubmit
+      // The `action` attribute on the form points to FormSubmit; programmatically submit it.
+      formRef.current?.submit();
+
+      // Reset local form state (UI will navigate/redirect by FormSubmit's _next)
+      setFormData({ name: "", email: "", message: "" });
+      toast({
+        title: "Submitting…",
+        description: "Redirecting to send your message.",
+      });
+
     } catch (error) {
       console.error('Form submission error:', error);
       toast({
@@ -163,7 +191,23 @@ const Contact = () => {
             animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.6 }}
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              action="https://formsubmit.co/princebadampudi@gmail.com"
+              method="POST"
+              className="space-y-6"
+            >
+              {/*
+                Replace `your-email@example.com` above with your real email address.
+                Hidden inputs below configure FormSubmit behavior:
+                - `_subject`: subject of the received email
+                - `_next`: where to redirect after successful submit
+                - `_captcha`: disable FormSubmit's captcha when set to false
+              */}
+              <input type="hidden" name="_subject" value="New contact message from portfolio" />
+              <input type="hidden" name="_captcha" value="false" />
+              {nextUrl && <input type="hidden" name="_next" value={nextUrl} />}
               <div>
                 <Input
                   name="name"

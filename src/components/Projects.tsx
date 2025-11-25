@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { config } from "@/lib/config";
 
@@ -18,14 +18,6 @@ const Projects = () => {
       tags: ["FastAPI", "React (Vite)", "SQLite", "SQLAlchemy", "TextBlob", "Gemini API", "Openrouter", "React Query", "Chart.js", "ECharts", "SSE", "Spacy"],
       github: config.projects.autonomousNavigation.github,
       demo: config.projects.autonomousNavigation.demo,
-    },
-    {
-      title: "Breast Cancer Detection Using Artificial Intelligence and Machine Learning",
-      description:
-        "Built and deployed ML and DL models for early breast cancer detection, applying preprocessing, SVM/Decision Tree baselines, and ResNet50. Evaluated performance using precision, recall, F1-score, and ROC curves. Optimized accuracy through hyperparameter tuning.",
-      tags: ["Python", "Scikit-learn", "TensorFlow/Keras", "Pandas", "NumPy", "Matplotlib", "Computer Vision"],
-      github: config.projects.nlpModel.github,
-      demo: config.projects.nlpModel.demo,
     },
     {
       title: "REF AI implementation using Deep Learning, XAI, Block chain",
@@ -50,6 +42,15 @@ const Projects = () => {
       tags: ["Python", "LangChain", "ChromaDB", "LlamaCpp", "SentenceTransformer", "LLM", "Hugging Face"],
       github: config.projects.reinforcementLearning.github,
       demo: config.projects.reinforcementLearning.demo,
+      colab: "https://colab.research.google.com/drive/1LWRcDGJHUWnO1d5gLiC_z4BWX6AOOlfV?usp=sharing",
+    },
+    {
+      title: "Logistic Cobot",
+      description:
+        "Developed a smart logistics system with a robotic arm for sorting and a mobile robot for transport, optimizing warehouse operations. Built a Gazebo digital twin and a ROS-based pipeline with MoveIt path planning for pick-and-place, Navigation stack for autonomous routing, and RViz for live monitoring. Added task orchestration, safety zones and recovery behaviors, plus telemetry to improve throughput and reduce manual intervention.",
+      tags: ["ROS", "Gazebo", "RViz", "MoveIt", "Navigation", "URDF/Xacro", "ros_control"],
+      github: config.projects.logisticCobot.github,
+      demo: config.projects.logisticCobot.demo,
     },
   ];
 
@@ -97,6 +98,7 @@ const ProjectCard = ({
     tags: string[];
     github: string;
     demo: string;
+    colab?: string;
   };
   index: number;
   inView: boolean;
@@ -136,28 +138,31 @@ const ProjectCard = ({
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="border-primary/50 hover:bg-primary/10 hover:border-primary group/btn"
-            asChild
-          >
-            <a href={project.github} target="_blank" rel="noopener noreferrer">
-              <Github className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
-              Code
-            </a>
-          </Button>
-          <Button
-            size="sm"
-            className="bg-gradient-primary text-primary-foreground hover:shadow-glow-primary group/btn"
-            asChild
-          >
-            <a href={project.demo} target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:translate-x-1 transition-transform" />
-              Live Demo
-            </a>
-          </Button>
+        <div className="flex">
+          {project.demo && project.title !== "Medical Chatbot" && (
+            <Button
+              size="sm"
+              className="bg-gradient-primary text-primary-foreground hover:shadow-glow-primary group/btn"
+              asChild
+            >
+              <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:translate-x-1 transition-transform" />
+                {index === 0 ? "Demo" : "Live Demo"}
+              </a>
+            </Button>
+          )}
+          {project.colab && (
+            <Button
+              size="sm"
+              className="ml-3 bg-gradient-primary text-primary-foreground hover:shadow-glow-primary group/btn"
+              asChild
+            >
+              <a href={project.colab} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:translate-x-1 transition-transform" />
+                Colab Notebook
+              </a>
+            </Button>
+          )}
         </div>
       </div>
 

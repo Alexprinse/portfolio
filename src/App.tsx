@@ -9,6 +9,7 @@ import ExperiencePage from "./pages/ExperiencePage";
 import EducationPage from "./pages/EducationPage";
 import SkillsPage from "./pages/SkillsPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import LogisticCobot from "./pages/LogisticCobot";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/education" element={<EducationPage />} />
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="/projects" element={<ProjectsPage />} />
+            <Route path="/projects/logistic-cobot" element={<LogisticCobot />} />
             <Route path="/contact" element={<ContactPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

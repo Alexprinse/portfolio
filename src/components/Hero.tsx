@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowRight, Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { config } from "@/lib/config";
@@ -125,7 +125,6 @@ const Hero = () => {
           >
             <SocialLink icon={<Github />} href={config.social.github} label="GitHub" />
             <SocialLink icon={<Linkedin />} href={config.social.linkedin} label="LinkedIn" />
-            <SocialLink icon={<Mail />} href={config.social.email} label="Email" />
           </motion.div>
         </motion.div>
       </div>

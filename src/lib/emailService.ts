@@ -99,6 +99,46 @@ export const sendEmailWithFormspree = async (formData: ContactFormData): Promise
   }
 };
 
+// FormSubmit integration (https://formsubmit.co)
+export const sendEmailWithFormSubmit = async (formData: ContactFormData): Promise<EmailResponse> => {
+  try {
+    // Construct the FormSubmit AJAX endpoint from the configured personal email
+    const endpoint = `https://formsubmit.co/ajax/${config.personal.email}`;
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      }),
+    });
+
+    if (response.ok) {
+      return {
+        success: true,
+        message: 'Message sent successfully via FormSubmit',
+      };
+    }
+
+    const text = await response.text();
+    console.error('FormSubmit response error:', response.status, text);
+    return {
+      success: false,
+      message: `FormSubmit request failed with status ${response.status}`,
+    };
+  } catch (error) {
+    console.error('FormSubmit error:', error);
+    return {
+      success: false,
+      message: 'Failed to send message via FormSubmit',
+    };
+  }
+};
+
 // Netlify Forms integration (works automatically when deployed to Netlify)
 export const sendEmailWithNetlify = async (formData: ContactFormData): Promise<EmailResponse> => {
   try {
@@ -146,15 +186,20 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<Email
   }
 
   // Try different email services based on configuration
+  // Prefer FormSubmit (single endpoint) when real submissions are enabled
+  if (config.contact.enableRealSubmission) {
+    return await sendEmailWithFormSubmit(formData);
+  }
+
   if (config.contact.useNetlifyForms) {
     return await sendEmailWithNetlify(formData);
   }
-  
+
   if (config.contact.formspreeEndpoint && config.contact.formspreeEndpoint !== "https://formspree.io/f/your-form-id") {
     return await sendEmailWithFormspree(formData);
   }
-  
-  if (config.contact.emailjs.serviceId && config.contact.emailjs.serviceId !== "your_service_id") {
+
+  if (config.contact.emailjs && config.contact.emailjs.serviceId && config.contact.emailjs.serviceId !== "your_service_id") {
     return await sendEmailWithEmailJS(formData);
   }
 
@@ -171,4 +216,5 @@ export default {
   sendEmailWithEmailJS,
   sendEmailWithFormspree,
   sendEmailWithNetlify,
+  sendEmailWithFormSubmit,
 };
